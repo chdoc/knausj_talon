@@ -16,6 +16,7 @@ execute <user.text>$:
 evaluate | (evaluate | eval) (exper | expression): user.emacs("eval-expression")
 prefix: user.emacs_prefix()
 prefix <user.number_signed_small>: user.emacs_prefix(number_signed_small)
+undo: user.emacs("undo")
 
 abort recursive [edit]: user.emacs("abort-recursive-edit")
 browse kill ring: user.emacs("browse-kill-ring")
@@ -46,9 +47,10 @@ manual <user.text>:
     user.insert_formatted(text, "DASH_SEPARATED")
 
 # BUFFER SWITCHING #
-switch: user.emacs("switch-to-buffer")
+buffer switch: user.emacs("switch-to-buffer")
 other switch: user.emacs("switch-to-buffer-other-window")
 display: user.emacs("display-buffer")
+switch : user.emacs("other-window")
 
 # SHELL COMMANDS #
 shell command: user.emacs("shell-command")
@@ -109,6 +111,7 @@ profiler report: user.emacs("profiler-report")
 # WINDOW/SPLIT MANAGEMENT #
 # What emacs calls windows, we call splits.
 split solo: user.emacs("delete-other-windows")
+split kill: user.emacs("delete-window")
 [split] rebalance: user.emacs("balance-windows")
 split shrink: user.emacs("shrink-window-if-larger-than-buffer")
 other [split] shrink:
@@ -303,6 +306,8 @@ project switch project: user.emacs("project-switch-project")
 
 # ----- VC/GIT SUPPORT ----- #
 vc (annotate | blame): user.emacs("vc-annotate")
+vc difference: user.emacs("vc-diff")
+
 
 # ----- MAJOR & MINOR MODES ----- #
 # python-mode #
@@ -351,3 +356,20 @@ outline demote: user.emacs("outline-demote")
 outline move [subtree] down: user.emacs("outline-move-subtree-down")
 outline move [subtree] up: user.emacs("outline-move-subtree-up")
 outline mark [subtree]: user.emacs("outline-mark-subtree")
+
+
+# proof-general-mode #
+#the following trigger messages:
+#proof next: user.emacs("proof-assert-next-command-interactive")
+#proof back: user.emacs("proof-undo-last-successful-command")
+
+proof next: key("ctrl-c ctrl-n")
+proof back: key("ctrl-c ctrl-u")
+proof [to] point: key("ctrl-c enter")
+proof [to] end: key("ctrl-c ctrl-b")
+proof (search|find): key("ctrl-c ctrl-f")
+proof print: key("ctrl-c ctrl-a ctrl-p")
+proof info: key("ctrl-c tab enter")
+proof locate: key("ctrl-c ctrl-a ctrl-l")
+proof refresh: key("ctrl-c ctrl-l")
+prover kill: key("ctrl-c ctrl-x")
