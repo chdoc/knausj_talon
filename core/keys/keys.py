@@ -172,7 +172,7 @@ punctuation_words = {
 symbol_key_words = {
     "dot": ".",
     "point": ".",
-    "quote": "'",
+    "single quote": "'",
     "question": "?",
     "apostrophe": "'",
     "L square": "[",
@@ -215,11 +215,12 @@ symbol_key_words = {
     "caret": "^",
     "amper": "&",
     "pipe": "|",
-    "dub quote": '"',
+    "quote": '"',
     "double quote": '"',
     # Currencies
     "dollar": "$",
     "pound": "£",
+    "euros": "€",
 }
 
 # make punctuation words also included in {user.symbol_keys}
