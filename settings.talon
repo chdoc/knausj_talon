@@ -65,3 +65,6 @@ settings():
 
 # Uncomment this to enable the curse yes/curse no commands (show hide mouse cursor). See issue #688.
 # tag(): user.mouse_cursor_commands_enable
+
+tag(): user.i3wm
+tag(): user.unix_utilities
