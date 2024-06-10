@@ -16,6 +16,7 @@ mod.tag("stylua", desc="Tag for stylua linting commands")
 
 ctx.lists["user.code_common_function"] = {
     "to number": "tonumber",
+    "pairs": "pairs",
     "I pairs": "ipairs",
     "print": "print",
     "print F": "printf",

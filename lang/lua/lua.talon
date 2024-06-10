@@ -18,8 +18,8 @@ tag(): user.code_operators_math
 tag(): user.code_operators_pointer
 # Use this tag if you use the stylua linter
 settings():
-    user.code_private_function_formatter = "SNAKE_CASE"
-    user.code_public_function_formatter = "SNAKE_CASE"
+    user.code_private_function_formatter = "PRIVATE_CAMEL_CASE"
+    user.code_public_function_formatter = "PRIVATE_CAMEL_CASE"
     user.code_private_variable_formatter = "SNAKE_CASE"
     user.code_public_variable_formatter = "SNAKE_CASE"
 
@@ -56,7 +56,7 @@ method <user.text>:
     insert("()")
     edit.left()
 
-self dot: "self."
+self: "self"
 
 index <user.word>: '["{word}"]'
 index (var | variable) <user.text>:
