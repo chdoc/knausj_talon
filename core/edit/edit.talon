@@ -21,8 +21,8 @@ go right: edit.right()
 go up: edit.up()
 go down: edit.down()
 
-go line start: edit.line_start()
-go line end: edit.line_end()
+go line start | head: edit.line_start()
+go line end | tail: edit.line_end()
 
 go way left:
     edit.line_start()
@@ -185,3 +185,5 @@ redo that: edit.redo()
 # Save
 file save: edit.save()
 file save all: edit.save_all()
+
+[go] line mid: user.line_middle()
