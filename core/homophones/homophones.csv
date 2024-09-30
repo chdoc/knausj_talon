@@ -109,7 +109,7 @@ build,billed
 bullion,bouillon,boolean
 boy,buoy
 burger,burgher
-borough,burrow,burro
+borough,burrow,burro,borrow
 bury,berry
 bust,bussed
 but,butt
@@ -316,6 +316,7 @@ I'll,aisle,isle
 islet,eyelet
 its,it's
 jam,jamb
+job,drop
 json,jason
 jinx,jinks
 kernel,colonel
@@ -355,6 +356,7 @@ loan,lone
 loot,lute
 low,lo
 lochs,locks,lox
+lua,lure
 lumber,lumbar
 lie,lye
 liar,lyre,lier
@@ -451,6 +453,7 @@ plaque,plack
 plate,plait
 plane,plain
 please,pleas
+plugin,plucking
 plum,plumb
 poll,pole
 pull,pool
@@ -561,6 +564,7 @@ surge,serge
 sweet,suite
 tax,tacks
 tacked,tact
+tailor,taylor
 tale,tail
 taper,tapir
 terry,tarry
