@@ -360,4 +360,10 @@ class WinActions:
     # To do this, put this in init.el:
     # (setq-default frame-title-format '((:eval (buffer-name (window-buffer (minibuffer-selected-window))))))
     def filename():
-        return actions.win.title()
+        title = actions.win.title()
+        result = title.split(" - ")[0]
+
+        if "." in result:
+            return result
+
+        return ""
