@@ -347,7 +347,7 @@ class Actions:
             # way for expediency around the 0.4 release.
             cmd = shlex.split(path)[0]
             args = shlex.split(path)[1:]
-            ui.launch(path=cmd, args=args)
+            ui.launch(path=cmd, args=args, cwd=os.path.expanduser('~'))
         elif app.platform == "windows":
             is_valid_path = False
             try:

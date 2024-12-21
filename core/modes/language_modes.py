@@ -7,7 +7,7 @@ language_extensions = {
     # 'assembly': 'asm s',
     # 'bash': 'bashbook sh',
     "batch": "bat",
-    "c": "c h",
+    "c": "c h cpp hpp",
     # 'cmake': 'cmake',
     # "cplusplus": "cpp hpp",
     "csharp": "cs",

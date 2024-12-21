@@ -2,6 +2,7 @@
 os: linux
 tag: user.i3wm
 -
+port two: user.i3wm_switch_to_workspace("2:mail")
 port <number_small>: user.i3wm_switch_to_workspace(number_small)
 (port flip | flipper): user.i3wm_switch_to_workspace("back_and_forth")
 port right: user.i3wm_switch_to_workspace("next")

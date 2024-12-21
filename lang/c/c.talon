@@ -7,7 +7,7 @@ tag(): user.code_comment_line
 tag(): user.code_comment_block_c_like
 tag(): user.code_data_bool
 tag(): user.code_data_null
-tag(): user.code_functions
+# tag(): user.code_functions
 tag(): user.code_functions_common
 tag(): user.code_libraries
 tag(): user.code_libraries_gui
@@ -59,32 +59,55 @@ state default: "default:\nbreak;"
 #best used with a push like command
 #the below example may not work in editors that automatically add the closing brace
 #if so uncomment the two lines and comment out the rest accordingly
-push braces:
+push (brace|braces):
     edit.line_end()
-    #insert("{")
-    #key(enter)
-    insert("{}")
-    edit.left()
+    insert("{")
     key(enter)
-    key(enter)
-    edit.up()
+    # insert("{}")
+    # edit.left()
+    # key(enter)
+    # key(enter)
+    # edit.up()
+
+push (semi|semicolon):
+     edit.line_end()
+     insert(";")
+     key(enter)
 
 # Declare variables or structs etc.
 # Ex. * int myList
-<user.c_variable> <phrase>:
+(var|variable) <user.c_variable> <phrase>:
     insert("{c_variable} ")
-    insert(user.formatted_text(phrase, "PRIVATE_CAMEL_CASE,NO_SPACES"))
+    insert(user.formatted_text(phrase, "SNAKE_CASE,NO_SPACES"))
+
+(auto|alto) <user.text>$:
+    formatted = user.formatted_text(text, "SNAKE_CASE,NO_SPACES")
+    insert("auto {formatted} = ")
 
 <user.c_variable> <user.letter>: insert("{c_variable} {letter} ")
 
-# Ex. (int *)
-cast to <user.c_cast>: "{c_cast}"
-standard cast to <user.stdint_cast>: "{stdint_cast}"
-<user.c_types>: "{c_types}"
-<user.c_pointers>: "{c_pointers}"
-<user.c_keywords>: "{c_keywords}"
-<user.c_signed>: "{c_signed}"
-standard <user.stdint_types>: "{stdint_types}"
+
+
+(stood|standard) <user.cpp_standard_types>:
+    insert("std::{cpp_standard_types}")
+(stood|standard) <user.cpp_standard_functions>:
+    insert("std::{cpp_standard_functions}(")
+
+# Ex. (int*)
+cast to <user.c_type>: "({c_type})"
+
+
+type <user.c_type>: "{c_type}"
+[qualify|qualifier] <user.c_qualifier_list>: "{c_qualifier_list}"
+
+[<user.c_qualifier_list>] <user.c_type> [var|variable] <user.c_variable>:
+    qualifiers = c_qualifier_list or ""
+    insert("{qualifiers}{c_type} {c_variable}")
+ 
+<user.c_qualifier_list> <user.c_type> funky <user.text>:
+    qualifiers = c_qualifier_list or ""
+    insert("")
+
 int main: user.insert_between("int main(", ")")
 
 toggle includes: user.code_toggle_libraries()

@@ -216,6 +216,7 @@ formatter_list = [
     CustomFormatter("TRAILING_SPACE", lambda text: f"{text} "),
     CustomFormatter("DOUBLE_QUOTED_STRING", lambda text: f'"{text}"'),
     CustomFormatter("SINGLE_QUOTED_STRING", lambda text: f"'{text}'"),
+    CustomFormatter("BACKTICK_SURROUNDED_STRING", lambda text: f"`{text}`"),
     CustomFormatter("SPACE_SURROUNDED_STRING", lambda text: f" {text} "),
     CustomFormatter("ALL_CAPS", lambda text: text.upper()),
     CustomFormatter("ALL_LOWERCASE", lambda text: text.lower()),
@@ -247,7 +248,7 @@ code_formatter_names = {
     "all down": "ALL_LOWERCASE",
     "camel": "PRIVATE_CAMEL_CASE",
     "dotted": "DOT_SEPARATED",
-    "dub string": "DOUBLE_QUOTED_STRING",
+    "string": "DOUBLE_QUOTED_STRING",
     "dunder": "DOUBLE_UNDERSCORE",
     "hammer": "PUBLIC_CAMEL_CASE",
     "kebab": "DASH_SEPARATED",
@@ -257,8 +258,11 @@ code_formatter_names = {
     "conga": "SLASH_SEPARATED",
     "smash": "NO_SPACES",
     "snake": "SNAKE_CASE",
-    "string": "SINGLE_QUOTED_STRING",
+    "single string": "SINGLE_QUOTED_STRING",
     "constant": "ALL_CAPS,SNAKE_CASE",
+    "code": "BACKTICK_SURROUNDED_STRING",
+    "code kebab": "BACKTICK_SURROUNDED_STRING,DASH_SEPARATED",
+    "code smash": "BACKTICK_SURROUNDED_STRING,NO_SPACES"
 }
 prose_formatter_names = {
     "say": "NOOP",

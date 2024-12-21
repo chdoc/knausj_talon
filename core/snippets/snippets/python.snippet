@@ -45,3 +45,15 @@ insertionScope: class | statement
 class $2Actions:
     $0
 ---
+
+name: talonModCapture
+phrase: mod capture
+insertionScope: class | statement
+
+$1.insertionFormatter: SNAKE_CASE
+-
+@mod.capture(rule="$1")
+def $2(m) -> str:
+    "Returns a string"
+    return m.$3
+---

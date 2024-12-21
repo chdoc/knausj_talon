@@ -18,6 +18,7 @@ ctx.lists["user.code_common_function"] = {
     "split": "split",
     "string": "str",
     "update": "update",
+    "dear": "dir",
 }
 
 """a set of fields used in python docstrings that will follow the
