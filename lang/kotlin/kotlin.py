@@ -20,6 +20,24 @@ ctx.lists["user.code_keyword"] = {
     "abstract": "abstract ",
     "interface": "interface ",
     "final": "final ",
+    "return": "return ",
+}
+
+ctx.lists["user.code_type"] = {
+    "boolean": "Boolean",
+    "byte": "Byte",
+    "short": "Short",
+    "int": "Int",
+    "long": "Long",
+    "float": "Float",
+    "double": "Double",
+    "char": "Char",
+    "string": "String",
+    "array": "Array",
+    "map": "Map",
+    "any": "Any",
+    "nothing": "Nothing",
+    "unit": "Unit",
 }
 
 
