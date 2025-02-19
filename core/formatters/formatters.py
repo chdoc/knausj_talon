@@ -223,6 +223,7 @@ formatter_list = [
     CustomFormatter("TRAILING_SPACE", lambda text: f"{text} "),
     CustomFormatter("DOUBLE_QUOTED_STRING", lambda text: f'"{text}"'),
     CustomFormatter("SINGLE_QUOTED_STRING", lambda text: f"'{text}'"),
+    CustomFormatter("BACKTICK_SURROUNDED_STRING", lambda text: f"`{text}`"),
     CustomFormatter("SPACE_SURROUNDED_STRING", lambda text: f" {text} "),
     CustomFormatter("ALL_CAPS", lambda text: text.upper()),
     CustomFormatter("ALL_LOWERCASE", lambda text: text.lower()),
