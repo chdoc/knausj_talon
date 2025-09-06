@@ -26,3 +26,11 @@ insertionScope: statement
 -
 pcall($0)
 ---
+
+name: formatString
+phrase: format string
+insertionScope: statement
+$1.insertionFormatter: DOUBLE_QUOTED_STRING
+-
+($1):format($0)
+---
