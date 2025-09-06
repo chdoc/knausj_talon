@@ -34,6 +34,7 @@ ctx.lists["user.code_common_function"] = {
     "is not NA": "!is.na",
     "length": "length",
     "library": "library",
+    "lines": "lines",
     "list files": "list.files",
     "list": "list",
     "lm": "lm",
@@ -44,7 +45,9 @@ ctx.lists["user.code_common_function"] = {
     "mean": "mean",
     "min": "min",
     "names": "names",
-    "paste": "paste0",
+    "paste": "paste",
+    "paste zero": "paste0",
+    "plot": "plot",
     "print": "print",
     "reorder": "reorder",
     "repeat": "rep",
@@ -65,6 +68,8 @@ ctx.lists["user.code_common_function"] = {
     "vector": "c",
     "vee table": "vtable",
     "view": "View",
+    "attribute": "attr",
+    "column names": "colnames",
     # dplyr
     "anti join": "anti_join",
     "arrange": "arrange",
@@ -205,6 +210,7 @@ ctx.lists["user.code_libraries"] = {
     "viridis": "viridis",
     "viridis light": "viridisLite",
     "shiny alert": "shinyalert",
+    "zoo": "zoo",
 }
 
 ctx.lists["user.code_parameter_name"] = {
@@ -239,6 +245,8 @@ ctx.lists["user.code_parameter_name"] = {
     "why limit": "ylim",
     "why max": "ymax",
     "why min": "ymin",
+    "unit": "unit",
+    "order by": "order.by",
 }
 
 operators = Operators(

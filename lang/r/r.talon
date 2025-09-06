@@ -24,6 +24,9 @@ library <user.code_libraries>:
     user.code_insert_library(code_libraries, "")
     key(end enter)
 
+from <user.code_libraries>:
+    insert("{code_libraries}:")
+
 # R specific commands
 (chain | pipe that):
     key(end)
