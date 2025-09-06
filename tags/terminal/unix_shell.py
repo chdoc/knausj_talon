@@ -16,12 +16,12 @@ class Actions:
 
     def terminal_list_directories():
         """Lists directories"""
-        actions.insert("ls")
+        actions.insert("ls -l")
         actions.key("enter")
 
     def terminal_list_all_directories():
         """Lists all directories including hidden"""
-        actions.insert("ls -a")
+        actions.insert("ls -al")
         actions.key("enter")
 
     def terminal_change_directory(path: str):
