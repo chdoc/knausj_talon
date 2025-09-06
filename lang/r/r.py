@@ -8,6 +8,7 @@ ctx.matches = r"""
 code.language: r
 """
 
+<<<<<<< HEAD
 ctx.lists["user.code_common_function"] = {
     # base R
     "as character": "as.character",
@@ -168,6 +169,8 @@ ctx.lists["user.code_common_function"] = {
     "observe event": "observeEvent",
     # Base
 }
+=======
+>>>>>>> main
 
 ctx.lists["user.code_libraries"] = {
     "bayes plot": "bayesplot",
@@ -308,7 +311,7 @@ class UserActions:
         actions.edit.left()
 
     def code_insert_library(text: str, selection: str):
-        actions.user.insert_snippet_by_name("importStatement", {"0": text + selection})
+        actions.user.insert_snippet_by_name("importStatement", {"1": text + selection})
 
     def code_insert_named_argument(parameter_name: str):
         actions.insert(f"{parameter_name} = ")

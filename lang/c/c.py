@@ -1,4 +1,3 @@
-from contextlib import suppress
 from talon import Context, Module, actions, settings
 
 from ..tags.operators import Operators
@@ -8,74 +7,68 @@ mod = Module()
 ctx = Context()
 ctx.matches = r"""
 code.language: c
+"""
+
+c_and_cpp_ctx = Context()
+c_and_cpp_ctx.matches = r"""
+code.language: c
 code.language: cpp
 """
 
-ctx.lists["self.c_pointers"] = {
+c_and_cpp_ctx.lists["self.c_pointers"] = {
     "pointer": "*",
-    "pointer to": "*",
+    "pointer to pointer": "**",
 }
 
-# fixed-width integer types
-
-ctx.lists["self.stdint_signed"] = {
+c_and_cpp_ctx.lists["self.stdint_signed"] = {
     "signed": "",
     "unsigned": "u",
     "you": "u",
 }
 
-ctx.lists["self.c_type_bit_width"] = {
-    "eight": "8",
-    "sixteen": "16",
-    "thirty two": "32",
-    "sixty four": "64",
-}
-
-# arithmetic types
-
-ctx.lists["user.c_arithmetic_specifiers"] = {
-    "short": 'short',
-    "long": 'long',
-    "signed": 'signed',
-    "unsigned": 'unsigned',
-    "char": 'char',
-    "car": "char",
-    "character": 'char',
-    "int": "int",
-    "integer": "int",
-    "double": 'double',
-    "float": 'float',
-    "boolean": "bool", #todo base types
-    "bool": "bool",
-    "void": "void", 
-}
-
-ctx.lists["user.c_qualifiers"] = {
-    "static": "static",
-    "constant": "const",
-    "const": "const",
-    "volatile": "volatile",
-    "extern": "extern",
-}
-
-ctx.lists["user.c_declarators"] = {
-    "array": "array",
-    "pointer": "pointer",
-}
-
-#### OLD
-
-ctx.lists["self.c_signed"] = {
+c_and_cpp_ctx.lists["self.c_signed"] = {
     "signed": "signed",
     "unsigned": "unsigned",
 }
 
-ctx.lists["self.c_keywords"] = {
+c_and_cpp_ctx.lists["self.c_keywords"] = {
     "static": "static",
     "volatile": "volatile",
     "register": "register",
 }
 
+c_and_cpp_ctx.lists["self.stdint_types"] = {
+    "character": "int8_t",
+    "char": "int8_t",
+    "short": "int16_t",
+    "long": "int32_t",
+    "long long": "int64_t",
+    "int": "int32_t",
+    "integer": "int32_t",
+    "void": "void",
+    "double": "double",
+    "struct": "struct",
+    "struck": "struct",
+    "num": "enum",
+    "union": "union",
+    "float": "float",
+}
+
+c_and_cpp_ctx.lists["self.c_types"] = {
+    "character": "char",
+    "char": "char",
+    "short": "short",
+    "long": "long",
+    "int": "int",
+    "integer": "int",
+    "void": "void",
+    "double": "double",
+    "struct": "struct",
+    "struck": "struct",
+    "num": "enum",
+    "union": "union",
+    "float": "float",
+}
 
 ctx.lists["user.code_libraries"] = {
     "assert": "assert.h",
@@ -95,62 +88,13 @@ ctx.lists["user.code_libraries"] = {
     "string": "string.h",
     "time": "time.h",
     "standard int": "stdint.h",
- 
 }
-
-ctx.lists["user.code_common_function"] = {
-    "mem copy": "memcpy",
-    "mem set": "memset",
-    "string cat": "strcat",
-    "stir cat": "strcat",
-    "stir en cat": "strncat",
-    "stir elle cat": "strlcat",
-    "stir copy": "strcpy",
-    "stir en copy": "strncpy",
-    "stir elle copy": "strlcpy",
-    "string char": "strchr",
-    "string dupe": "strdup",
-    "stir dupe": "strdup",
-    "stir comp": "strcmp",
-    "stir en comp": "strncmp",
-    "string len": "strlen",
-    "stir len": "strlen",
-    "is digit": "isdigit",
-    "get char": "getchar",
-    "print eff": "printf",
-    "es print eff": "sprintf",
-    "es en print eff": "sprintf",
-    "stir to int": "strtoint",
-    "stir to unsigned int": "strtouint",
-    "ay to eye": "atoi",
-    "em map": "mmap",
-    "ma map": "mmap",
-    "em un map": "munmap",
-    "size of": "sizeof",
-    "ef open": "fopen",
-    "ef write": "fwrite",
-    "ef read": "fread",
-    "ef close": "fclose",
-    "exit": "exit",
-    "signal": "signal",
-    "set jump": "setjmp",
-    "get op": "getopt",
-    "malloc": "malloc",
-    "see alloc": "calloc",
-    "alloc ah": "alloca",
-    "re alloc": "realloc",
-    "free": "free",
-}
-
-mod.list("c_type_bit_width", desc="Common C type bit widths")
-mod.list("c_arithmetic_specifiers", desc="C type specifiers")
-mod.list("c_qualifiers", desc="C type qualifiers")
-mod.list("c_common_function", desc="common C functions")
-mod.list("c_declarators", desc="common C declarators")
 
 mod.list("c_pointers", desc="Common C pointers")
 mod.list("c_signed", desc="Common C datatype signed modifiers")
 mod.list("c_keywords", desc="C keywords")
+mod.list("c_types", desc="Common C types")
+mod.list("stdint_types", desc="Common stdint C types")
 mod.list("stdint_signed", desc="Common stdint C datatype signed modifiers")
 
 
@@ -189,67 +133,23 @@ def stdint_signed(m) -> str:
     "Returns a string"
     return m.stdint_signed
 
-@mod.capture(rule="{self.c_type_bit_width}")
-def c_type_bit_width(m) -> str:
-    "Returns a string"
-    return m.c_type_bit_width
 
-@mod.capture(rule="{self.c_arithmetic_specifiers}")
-def c_arithmetic_specifier(m) -> str:
+@mod.capture(rule="[<self.c_signed>] <self.c_types> [<self.c_pointers>+]")
+def c_cast(m) -> str:
     "Returns a string"
-    return m.c_arithmetic_specifiers
+    return "(" + " ".join(list(m)) + ")"
 
-# fixed-width integer types
-@mod.capture(rule="[<self.stdint_signed>] int <self.c_type_bit_width>")
-def c_fixed_integer(m) -> str:
+
+@mod.capture(rule="[<self.stdint_signed>] <self.stdint_types> [<self.c_pointers>+]")
+def stdint_cast(m) -> str:
     "Returns a string"
-    prefix = ""
-    with suppress(AttributeError):
-        prefix = m.stdint_signed
-    return prefix + "int" + m.c_type_bit_width + "_t"
+    return "(" + "".join(list(m)) + ")"
 
-# arithmetic types
-@mod.capture(rule="<self.c_arithmetic_specifier>+")
-def c_arithmetic_type(m) -> str:
-    "Returns a string"
-    return " ".join(m.c_arithmetic_specifier_list)
 
-@mod.capture(rule="<self.c_fixed_integer>|<self.c_arithmetic_type>")
-def c_raw_type(m) -> str:
-    "Returns a string"
-    return str(m)
-
-@mod.capture(rule="<self.c_raw_type> [<self.c_pointers>+]")
-def c_type(m) -> str:
-    "Returns a string"
-    suffix = ""
-    with suppress(AttributeError):
-        suffix = "".join(m.c_pointers_list)
-    return m.c_raw_type+suffix
-
-@mod.capture(rule="{self.c_declarators}* <user.text>")
+@mod.capture(rule="[<self.c_signed>] <self.c_types> [<self.c_pointers>]")
 def c_variable(m) -> str:
     "Returns a string"
-    name = actions.user.formatted_text(
-                m.text,
-                settings.get("user.code_private_variable_formatter")
-            )
-    with suppress(AttributeError):
-        if 'array' in m.c_declarators_list:
-            name = name+"[]"
-        if 'pointer' in m.c_declarators_list:
-            name = "*"+name
-    return name
-
-@mod.capture(rule="{self.c_qualifiers}")
-def c_qualifier(m) -> str:
-    "Returns a string"
-    return m.c_qualifiers
-
-@mod.capture(rule="<self.c_qualifier>+")
-def c_qualifier_list(m) -> str:
-    "Returns a string"
-    return " ".join(m.c_qualifier_list)+" "
+    return " ".join(list(m))
 
 
 operators = Operators(
