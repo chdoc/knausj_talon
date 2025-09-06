@@ -19,6 +19,7 @@ mod.list("cpp_namespace", desc="Commonly used namespaces")
 ctx.lists["user.code_libraries"] = {
     "algorithm": "algorithm",
     "array": "array",
+    "bit set": "bitset",
     "chrono": "chrono",
     "condition variable": "condition_variable",
     "deck": "deque",  # Pronounced "deck"

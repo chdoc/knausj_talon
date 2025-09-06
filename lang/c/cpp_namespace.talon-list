@@ -23,3 +23,7 @@ algorithm
 iostream
 dwarf: df
 dwarf hack: DFHack
+hack: DFHack
+units: Units
+items: Items
+job: Job
