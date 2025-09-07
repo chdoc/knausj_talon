@@ -1,4 +1,4 @@
-list: user.cpp_standard_constants
+list: user.cpp_standard_constant
 code.language: cpp
 language: en
 -

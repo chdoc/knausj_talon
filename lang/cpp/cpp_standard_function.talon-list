@@ -1,6 +1,5 @@
-list: user.cpp_standard_functions
+list: user.cpp_standard_function
 code.language: cpp
-language: en
 -
 all of: all_of
 any of: any_of
