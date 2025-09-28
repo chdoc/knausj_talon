@@ -1,5 +1,3 @@
-from contextlib import suppress
-
 from talon import Context, Module, actions
 
 from ..c.c import operators
@@ -91,9 +89,7 @@ def code_type_raw(m) -> str:
 
 # shared formatting for standalone types and variable declarations (e.g. "int*" and "int *p")
 def format_type(m, w):
-    suffix = ""
-    with suppress(AttributeError):
-        suffix = "".join(m.cpp_pointers_list)
+    suffix = "".join(getattr(m, "cpp_pointers_list", []))
     return f"{m.code_type_raw}{w}{suffix}"
 
 
