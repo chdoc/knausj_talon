@@ -97,7 +97,6 @@ true
 try: "try "
 typedef: "typedef "
 typeid
-typename
 un define: "undef "
 union: "union "
 unsigned
