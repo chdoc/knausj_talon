@@ -19,6 +19,7 @@ mod.list("cpp_standard_constant", desc="Constants in the std namespace")
 mod.list("cpp_standard_prefix", desc="Prefixes for referring to the standard library")
 mod.list("cpp_standard_header", desc="Header files of the C++ standard library")
 mod.list("cpp_namespace", desc="Spoken forms for C++ namespaces")
+mod.list("cpp_user_type", desc="Spoken forms for user-defined types")
 
 
 @mod.capture(rule="{user.cpp_standard_prefix} {user.cpp_standard_type}")
@@ -82,7 +83,7 @@ class UserActions:
 
 
 @mod.capture(
-    rule="([<user.c_signed>] <user.c_types>) | <user.c_fixed_integer> | <user.cpp_standard_type>"
+    rule="([<user.c_signed>] <user.c_types>) | <user.c_fixed_integer> | <user.cpp_standard_type> | {user.cpp_user_type}"
 )
 def code_type_raw(m) -> str:
     return " ".join(list(m))
