@@ -1,6 +1,7 @@
 list: user.git_command
 -
 add
+apply
 archive
 bisect
 blame
