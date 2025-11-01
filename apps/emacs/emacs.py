@@ -1,5 +1,6 @@
 import logging
 import re
+import subprocess
 from typing import Optional
 
 from talon import Context, Module, actions, settings, ui, app
@@ -93,6 +94,19 @@ class Actions:
             actions.insert(short_form or command_name)
             actions.key("enter")
 
+    def emacs_rpc(command_name: str):
+        "Tries to dispatch a command to an emacs server running the emacslisten package"
+        try:
+            print(command_name)
+            subprocess.run([ "emacsclient", "-e", f"(emacslisten-evaluate ({command_name}))" ], check=True)
+        except subprocess.CalledProcessError:
+            app.notify(f"Could not contact command listener")
+            raise
+    
+    def emacs_repeat(n: int):
+        "Repeat last command a number of times"
+        actions.user.emacs_key("ctrl-x" + n*" z")
+
     def emacs_help(key: str = None):
         "Runs the emacs help command prefix, optionally followed by some keys."
         # NB. f1 works in ansi-term mode; C-h doesn't.
@@ -177,7 +191,16 @@ class UserActions:
             after = actions.edit.selected_text()
             actions.user.emacs("pop-to-mark-command")
         return (before, after)
+    
+    def insert_snippet(body: str):
+        # double quote backticks, because executing the command will remove one level
+        # of quoting and yasnippet requires backticks to be backslash escaped
+        body = body.replace("`", '\\\\`')
+        print(body)
+        actions.user.emacs_rpc(f"yas-expand-snippet \"{body}\"")
 
+    def move_cursor_to_next_snippet_stop():
+        actions.user.emacs_rpc("yas-next-field-or-maybe-expand")
 
 @ctx.action_class("edit")
 class EditActions:
