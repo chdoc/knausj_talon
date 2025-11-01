@@ -16,8 +16,6 @@ execute <user.text>$:
 evaluate | (evaluate | eval) (exper | expression): user.emacs("eval-expression")
 prefix: user.emacs_prefix()
 prefix <user.number_signed_small>: user.emacs_prefix(number_signed_small)
-undo: user.emacs("undo")
-comment that: user.emacs("comment-dwim")
 
 abort recursive [edit]: user.emacs("abort-recursive-edit")
 browse kill ring: user.emacs("browse-kill-ring")
@@ -50,10 +48,9 @@ manual <user.text>:
     user.insert_formatted(text, "DASH_SEPARATED")
 
 # BUFFER SWITCHING #
-buffer switch: user.emacs("switch-to-buffer")
+switch: user.emacs("switch-to-buffer")
 other switch: user.emacs("switch-to-buffer-other-window")
 display: user.emacs("display-buffer")
-switch : user.emacs("other-window")
 
 # SHELL COMMANDS #
 shell command: user.emacs("shell-command")
@@ -76,6 +73,7 @@ customize variable: user.emacs("customize-variable")
 
 # MODE COMMANDS #
 auto fill mode: user.emacs("auto-fill-mode")
+dired mode: user.emacs("dired-mode")
 dired omit mode: user.emacs("dired-omit-mode")
 display line numbers mode: user.emacs("display-line-numbers-mode")
 electric quote local mode: user.emacs("electric-quote-local-mode")
@@ -114,7 +112,6 @@ profiler report: user.emacs("profiler-report")
 # WINDOW/SPLIT MANAGEMENT #
 # What emacs calls windows, we call splits.
 split solo: user.emacs("delete-other-windows")
-split kill: user.emacs("delete-window")
 [split] rebalance: user.emacs("balance-windows")
 split shrink: user.emacs("shrink-window-if-larger-than-buffer")
 other [split] shrink:
@@ -320,8 +317,7 @@ project switch [project]: user.emacs("project-switch-project")
 
 # ----- VC/GIT SUPPORT ----- #
 vc (annotate | blame): user.emacs("vc-annotate")
-vc difference: user.emacs("vc-diff")
-
+vc (diff | difference): user.emacs("vc-diff")
 
 # ----- MAJOR & MINOR MODES ----- #
 # python-mode #
@@ -373,22 +369,6 @@ outline move [subtree] up: user.emacs("outline-move-subtree-up")
 outline mark [subtree]: user.emacs("outline-mark-subtree")
 
 
-# proof-general-mode #
-#the following trigger messages:
-#proof next: user.emacs("proof-assert-next-command-interactive")
-#proof back: user.emacs("proof-undo-last-successful-command")
-
-proof next: key("ctrl-c ctrl-n")
-proof back: key("ctrl-c ctrl-u")
-proof [to] point: key("ctrl-c enter")
-proof [to] end: key("ctrl-c ctrl-b")
-proof (search|find): key("ctrl-c ctrl-f")
-proof print: key("ctrl-c ctrl-a ctrl-p")
-proof info: key("ctrl-c tab enter")
-proof locate: key("ctrl-c ctrl-a ctrl-l")
-proof refresh: key("ctrl-c ctrl-l")
-prover kill: key("ctrl-c ctrl-x")
-
 # LaTeX mode #
 tech run: user.emacs("TeX-command-master")
 tech reference: user.emacs("reftex-reference")
@@ -396,3 +376,19 @@ tech macro: user.emacs("TeX-insert-macro")
 tech environment: user.emacs("LaTeX-environment")
 tech section: user.emacs("LaTeX-section")
 expand: user.emacs("dabbrev-expand")
+
+# hatty-mode #
+hats on: user.emacs("hatty-mode", 1)
+hats off: user.emacs("hatty-mode", -1)
+
+# multiple-cursors-mode #
+cursor lines: user.emacs("mc/edit-lines")
+cursor next like: user.emacs("mc/mark-next-like-this")
+cursor next <number> like:
+    user.emacs("mc/mark-next-like-this")
+    user.emacs_repeat(number-1)
+
+# magit #
+maggot status: user.emacs("magit-status")
+edit finish: user.emacs("with-editor-finish")
+undo: user.emacs("undo")
