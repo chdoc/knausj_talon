@@ -26,10 +26,12 @@ tag: user.i3wm
 
 mod.list("i3wm_resize_dir", desc="Directions for window resizing in i3wm")
 
+
 @mod.capture(rule="{user.i3wm_resize_dir}+")
 def i3wm_resize_dirs(m) -> str:
     "One or more resize directions separated by a space"
     return str(m)
+
 
 @ctx.action_class("app")
 class AppActions:
@@ -45,6 +47,7 @@ def i3msg_nocheck(arguments: str):  # type: ignore
         check=False,
     )
 
+
 @ctx.action_class("user")
 class UserActions:
     def switcher_focus(name: str):  # type: ignore
@@ -56,10 +59,9 @@ class UserActions:
         else:
             # Focus first window of app
             app.focus()
-        # Make sure wereally focus the window, even if
+        # Make sure we really focus the window, even if
         # focus_on_window_activation is set to "smart" or "urgent"
-        actions.user.i3msg("[urgent=\"latest\"] focus")
-
+        actions.user.i3msg('[urgent="latest"] focus')
 
 
 @mod.action_class
