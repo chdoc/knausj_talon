@@ -2,10 +2,10 @@
 os: linux
 tag: user.i3wm
 -
-# Change the settings below, if you're key combination for these actions differs from the defaults.
-settings():
-    # user.i3_launch_key = "super-d"
-    # user.i3_terminal_key = "super-enter"
+
+# Change the settings below, if your key combination for these actions differs from the defaults.
+# user.i3_launch_key = "super-d"
+# user.i3_terminal_key = "super-enter"
 
 # Use the commands in desktops.talon to navigate between workspaces
 (desk flip | flipper): user.i3msg("workspace back_and_forth")
