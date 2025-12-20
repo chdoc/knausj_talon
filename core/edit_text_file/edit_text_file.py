@@ -66,8 +66,9 @@ def open_with_subprocess(path: Path, args: list[str | Path]):
     try:
         subprocess.run(args, timeout=0.5, check=True)
     except subprocess.TimeoutExpired:
-        app.notify(f"Timeout trying to open file for editing: {path}")
-        raise
+        #app.notify(f"Timeout trying to open file for editing: {path}")
+        #raise
+        pass
     except subprocess.CalledProcessError:
         app.notify(f"Could not open file for editing: {path}")
         raise
