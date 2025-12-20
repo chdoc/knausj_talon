@@ -44,6 +44,7 @@ focus floating: user.i3msg("focus mode_toggle")
 resize mode: user.i3msg("mode resize")
 focus parent: user.i3msg("focus parent")
 focus child: user.i3msg("focus child")
+focus urgent: user.i3msg("[urgent=\"latest\"] focus")
 
 horizontal (shell | terminal):
     user.i3msg("split h")
