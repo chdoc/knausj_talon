@@ -124,6 +124,12 @@ def prose_ship(m) -> str:
     """Spell word phonetically using uppercase letters"""
     return m.letters.upper()
 
+@mod.capture(rule="ship <user.letters>")
+def prose_ship(m) -> str:
+    """Spell word phonetically using uppercase letters"""
+    return m.letters.upper()
+
+
 @mod.capture(rule="clip clip")
 def prose_clipboard(m) -> str:
     """Clipboard content"""
