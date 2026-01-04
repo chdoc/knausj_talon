@@ -9,6 +9,8 @@ tag: user.i3wm
 
 # Use the commands in desktops.talon to navigate between workspaces
 (desk flip | flipper): user.i3msg("workspace back_and_forth")
+# move workspaces between screens/outputs
+desk move <user.arrow_key>: user.i3msg("move workspace to output {arrow_key}")
 
 (win | window) left: user.i3msg("focus left")
 (win | window) right: user.i3msg("focus right")
