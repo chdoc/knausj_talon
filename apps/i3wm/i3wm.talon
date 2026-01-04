@@ -65,6 +65,10 @@ vertical (shell | terminal):
 (shuffle | move) flipper: user.i3msg("move container to workspace back_and_forth")
 (shuffle | move (win | window)) {user.arrow_key}: user.i3msg("move {arrow_key}")
 
+shuffle <number_small> and follow:
+    user.i3msg("move container to workspace number {number_small}")
+    user.i3msg("workspace number {number_small}")
+
 (win | window) horizontal: user.i3msg("split h")
 (win | window) vertical: user.i3msg("split v")
 
