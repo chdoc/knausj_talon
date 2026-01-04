@@ -39,6 +39,13 @@ symbol hunt all [<user.text>]:
     sleep(50ms)
     insert(text or "")
 
+# Workspace-wide text search
+find it all [<user.text>]:
+    user.vscode("workbench.action.quickOpen")
+    sleep(50ms)
+    search = text or ""
+    insert("%{search}")
+
 # Panels
 panel control: user.vscode("workbench.panel.repl.view.focus")
 panel output: user.vscode("workbench.panel.output.focus")
