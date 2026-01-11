@@ -130,5 +130,4 @@ settings():
 
 tag(): user.i3wm
 tag(): user.unix_utilities
-tag(): user.cursorless_use_community_snippets
 
