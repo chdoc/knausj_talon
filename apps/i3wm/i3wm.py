@@ -1,4 +1,5 @@
 import subprocess
+import time
 from typing import Optional, Union
 
 from talon import Context, Module, actions, settings, ui
@@ -58,30 +59,46 @@ def i3msg_nocheck(arguments: str):  # type: ignore
 def i3wm_focus_window_by_id(id: int):
     actions.user.i3msg(f"[id={id}] focus")
 
+_switcher_focus_windows_to_skip: set[int] = set()
 
 @ctx.action_class("user")
 class UserActions:
     def switcher_focus_window(window: ui.Window):  # type: ignore
         i3wm_focus_window_by_id(window.id)
 
+    
     def switcher_focus(name: str):  # type: ignore
+        global _switcher_focus_windows_to_skip
         app = actions.user.get_running_app(name)
-        actions.user.switcher_focus_app(app)
+
+        # If app is inactive, focus most recently active window
+        if app != ui.active_app():
+            i3wm_focus_window_by_id(app.active_window.id)
+            
+        # Otherwise, cycle through available windows
+        app_window_ids: list[int] = [window.id for window in app.windows() if not window.hidden]
+        assert(len(app_window_ids) > 0)
+
+        _switcher_focus_windows_to_skip.add(ui.active_window().id)
+        targets = [id for id in app_window_ids if id not in _switcher_focus_windows_to_skip]
+        if len(targets) > 0:
+            # focus new window if one is available
+            i3wm_focus_window_by_id(targets[0])
+        else:
+            # otherwise, focus window that is furthest down the stack
+            _switcher_focus_windows_to_skip = set()
+            i3wm_focus_window_by_id(app_window_ids[-1])
+    
 
     def switcher_focus_app(app: ui.App):  # type: ignore
-        # Obtain window ids for all windows of the application
-        # (sorting is necessary, because the order differs between calls)
-        app_window_ids: list[int] = sorted([window.id for window in app.windows()])
-        assert len(app_window_ids) > 0
+        i3wm_focus_window_by_id(app.active_window.id)
 
-        if app == ui.active_app():
-            # Focus next window of already active app
-            current_idx = app_window_ids.index(app.active_window.id)
-            next_idx = (current_idx + 1) % len(app_window_ids)
-            i3wm_focus_window_by_id(app_window_ids[next_idx])
-        else:
-            # Focus first window of previously inactive app
-            i3wm_focus_window_by_id(app_window_ids[0])
+        t1 = time.perf_counter()
+        while ui.active_app() != app:
+            if time.perf_counter() - t1 > 1:
+                raise RuntimeError(f"Can't focus app: {app.name}")
+            actions.sleep(0.1)
+
 
     # the default implementation considers desktops consecutively numbered
     # this would be highly confusing given the numbering of i3wm workspaces
