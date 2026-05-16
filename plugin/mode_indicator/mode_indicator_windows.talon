@@ -1,4 +1,5 @@
 os: windows
+-
 
 settings():
     # Don't show mode indicator by default

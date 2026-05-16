@@ -1,3 +1,6 @@
+os: linux
+-
+
 settings():
     # Don't show mode indicator by default
     user.mode_indicator_show = true
