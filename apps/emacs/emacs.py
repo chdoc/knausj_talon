@@ -378,7 +378,7 @@ class CodeActions:
 
     def language():
         # Assumes win.filename() gives buffer name.
-        if "*scratch*" == actions.win.filename():
+        if actions.win.filename() == "*scratch*":
             return "elisp"
         return actions.next()
 
