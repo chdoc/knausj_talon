@@ -308,7 +308,7 @@ class EditActions:
     def jump_line(n):
         actions.user.emacs("goto-line", n)
 
-    def select_line(n: int = None):
+    def select_line(n=None):
         if n is not None:
             actions.edit.jump_line(n)
         else:
@@ -338,7 +338,7 @@ class EditActions:
 
     # Some modes override ctrl-s/r to do something other than isearch-forward, so we
     # deliberately don't use actions.user.emacs.
-    def find(text: str = None):
+    def find(text=None):
         actions.key("ctrl-s")
         if text:
             actions.insert(text)
